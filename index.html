@@ -2,98 +2,118 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Calculator</title>
+<title>CASIO Calculator</title>
+
 <style>
-    body {
-        background: #1e1e2f;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-family: Arial;
-    }
+body {
+    background: #0f172a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial;
+}
 
-    .calculator {
-        background: #2d2d44;
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 0 20px #000;
-    }
+.calculator {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px #000;
+    width: 280px;
+}
 
-    #display {
-        width: 100%;
-        height: 60px;
-        font-size: 24px;
-        margin-bottom: 15px;
-        text-align: right;
-        padding: 10px;
-        border: none;
-        border-radius: 10px;
-    }
+.brand {
+    color: #ccc;
+    text-align: right;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
 
-    .buttons {
-        display: grid;
-        grid-template-columns: repeat(4, 70px);
-        gap: 10px;
-    }
+.display {
+    background: #d1d5db;
+    height: 60px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 24px;
+    text-align: right;
+    overflow: hidden;
+}
 
-    button {
-        height: 60px;
-        font-size: 20px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        background: #3b3b5c;
-        color: white;
-    }
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
 
-    button:hover {
-        background: #57578a;
-    }
+button {
+    height: 55px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    background: #334155;
+    color: white;
+    transition: 0.2s;
+}
 
-    .equal {
-        background: #00b894;
-    }
+button:hover {
+    background: #475569;
+}
 
-    .equal:hover {
-        background: #00a383;
-    }
+.operator {
+    background: #2563eb;
+}
 
-    .clear {
-        background: #d63031;
-    }
+.operator:hover {
+    background: #1d4ed8;
+}
 
-    .clear:hover {
-        background: #b71c1c;
-    }
+.equal {
+    background: #16a34a;
+    grid-row: span 2;
+}
+
+.equal:hover {
+    background: #15803d;
+}
+
+.clear {
+    background: #dc2626;
+}
+
+.clear:hover {
+    background: #b91c1c;
+}
 </style>
 </head>
 
 <body>
 
 <div class="calculator">
-    <input type="text" id="display" disabled>
+    <div class="brand">CASIO</div>
+    <div id="display" class="display"></div>
 
     <div class="buttons">
-        <button onclick="clearDisplay()" class="clear">C</button>
+        <button class="clear" onclick="clearDisplay()">C</button>
         <button onclick="deleteLast()">⌫</button>
-        <button onclick="append('/')">÷</button>
-        <button onclick="append('*')">×</button>
+        <button class="operator" onclick="append('/')">÷</button>
+        <button class="operator" onclick="append('*')">×</button>
 
         <button onclick="append('7')">7</button>
         <button onclick="append('8')">8</button>
         <button onclick="append('9')">9</button>
-        <button onclick="append('-')">-</button>
+        <button class="operator" onclick="append('-')">−</button>
 
         <button onclick="append('4')">4</button>
         <button onclick="append('5')">5</button>
         <button onclick="append('6')">6</button>
-        <button onclick="append('+')">+</button>
+        <button class="operator" onclick="append('+')">+</button>
 
         <button onclick="append('1')">1</button>
         <button onclick="append('2')">2</button>
         <button onclick="append('3')">3</button>
-        <button onclick="calculate()" class="equal">=</button>
+        <button class="equal" onclick="calculate()">=</button>
 
         <button onclick="append('0')" style="grid-column: span 2;">0</button>
         <button onclick="append('.')">.</button>
@@ -101,27 +121,27 @@
 </div>
 
 <script>
-    function append(value) {
-        document.getElementById("display").value += value;
-    }
+let display = document.getElementById("display");
 
-    function clearDisplay() {
-        document.getElementById("display").value = "";
-    }
+function append(value) {
+    display.innerText += value;
+}
 
-    function deleteLast() {
-        let display = document.getElementById("display");
-        display.value = display.value.slice(0, -1);
-    }
+function clearDisplay() {
+    display.innerText = "";
+}
 
-    function calculate() {
-        let display = document.getElementById("display");
-        try {
-            display.value = eval(display.value);
-        } catch {
-            display.value = "Error";
-        }
+function deleteLast() {
+    display.innerText = display.innerText.slice(0, -1);
+}
+
+function calculate() {
+    try {
+        display.innerText = eval(display.innerText);
+    } catch {
+        display.innerText = "Error";
     }
+}
 </script>
 
 </body>
